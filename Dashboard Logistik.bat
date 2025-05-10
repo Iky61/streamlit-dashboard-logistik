@@ -1,5 +1,5 @@
 @echo off
-cd /d "D:\Dashboard Logistik\dashboard_logistik\dashboard_logistik"
+cd /d "D:\Dashboard Logistik\streamlit-dashboard-logistik"
 
 call venv\Scripts\activate
 python -m pip install --upgrade pip
