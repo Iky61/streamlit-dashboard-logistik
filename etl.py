@@ -48,20 +48,12 @@ def get_stock_move_line(date, db_product=get_product()):
     stock_move_line['date'] = pd.to_datetime(stock_move_line['date'])
 
     # In & Out Stok MRLW state not DONE
-    stok_mrwl_ou_not_done = stock_move_line[(stock_move_line.location_id.apply(lambda x: 'MRWL' in x)) & (stock_move_line.state.isin(['done']) == False)]
-    stok_mrwl_in_not_done = stock_move_line[
-        (stock_move_line.location_id.apply(lambda x: 'MRWL' not in x)) & 
-        (stock_move_line.location_dest_id.isin(['MRWL/Stock'])) & 
-        (stock_move_line.state.isin(['done','cancel']) == False)
-    ]
+    stok_mrwl_ou_not_done = stock_move_line[(stock_move_line.location_id.apply(lambda x: 'MRWL' in x)) & (stock_move_line.state.isin(['done','cancel']) == False)]
+    stok_mrwl_in_not_done = stock_move_line[(stock_move_line.location_id.apply(lambda x: 'MRWL' not in x)) & (stock_move_line.location_dest_id.isin(['MRWL/Stock'])) & (stock_move_line.state.isin(['done','cancel']) == False)]
 
     # In & Out Stok MRLW
     stok_mrwl_out = stock_move_line[(stock_move_line.location_id.apply(lambda x: 'MRWL' in x)) & (stock_move_line.state.isin(['cancel']) == False)]
-    stok_mrwl_in = stock_move_line[
-        (stock_move_line.location_id.apply(lambda x: 'MRWL' not in x)) &
-        (stock_move_line.location_dest_id.isin(['MRWL/Stock'])) &
-        (stock_move_line.state.isin(['done','cancel']) == False)
-    ]
+    stok_mrwl_in = stock_move_line[(stock_move_line.location_id.apply(lambda x: 'MRWL' not in x)) &(stock_move_line.location_dest_id.isin(['MRWL/Stock'])) & (stock_move_line.state.isin(['cancel']) == False)]
 
     # Out Before
     stok_mrwl_out_before = stok_mrwl_out[stok_mrwl_out.date < date]
