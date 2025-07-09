@@ -44,6 +44,8 @@ def get_stock_move_line(date, db_product=get_product()):
 
     # Transform data
     stock_move_line['datetime'] = pd.to_datetime(stock_move_line['date'])
+    stock_move_line['datetime'] = stock_move_line['datetime'].dt.tz_localize('UTC').dt.tz_convert('Asia/Makassar')
+    stock_move_line['datetime'] = pd.to_datetime(stock_move_line['datetime'].apply(lambda x: str(x).split('+')[0]))
     stock_move_line['date'] = pd.to_datetime(stock_move_line['datetime']).dt.date
     stock_move_line['date'] = pd.to_datetime(stock_move_line['date'])
 
